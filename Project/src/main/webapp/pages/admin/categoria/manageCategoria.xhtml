@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+	<h:form id="formManageCategoria" >
+	
+	<!-- Add button -->
+		<p:commandButton value="ADD CATEGORIA" title="Add" update=":formCategoria"
+			oncomplete="categoriaDialog.show();"
+			action="#{categoriaBean.btnAdd}" ajax="true" />
+			
+		<ui:include	src="/pages/admin/categoria/dataTableCategoria.xhtml" />	
+
+	</h:form>
+
+	<!-- Include form from Add and Edit   -->
+ 	<ui:include	src="/pages/admin/categoria/formCategoria.xhtml" /> 
+
+</ui:composition>

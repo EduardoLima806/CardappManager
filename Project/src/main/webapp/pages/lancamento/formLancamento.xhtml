@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+	<p:growl id="msg_growl" globalOnly="true" showDetail="true"/>
+	<p:dialog header="Lancamentos" widgetVar="lancamentoDialog" id="addLancamento" resizable="false" modal="true" closable="false" appendTo="@(body)">
+		<h:form id="formLancamento">
+			
+				<h:panelGrid columns="3">
+
+					 <!-- Conta -->
+					<!--<p:column>
+					    
+				           	<h:outputLabel for="idConta" value="Conta: *" />
+						<p:selectOneMenu id="idConta" value="#{lancamentoBean.contaSelected}" style="width:200px;  margin:5px;">
+							<f:selectItems value="#{lancamentoBean.listConta}" />
+						</p:selectOneMenu>
+					</p:column> -->
+
+					<!-- Categoria -->
+					<p:column>
+				        <h:outputLabel for="idCategoria" value="Categoria: *" />
+						<p:selectOneMenu id="idCategoria" value="#{lancamentoBean.categoriaSelected}" style="width:200px; margin-left:30px;" >
+							<f:selectItems value="#{lancamentoBean.listCategoria}" />
+						</p:selectOneMenu>
+					</p:column>
+					 
+				</h:panelGrid>
+			
+				<h:panelGrid columns="2" style="margin-right:30px; margin-top:10px;">
+				
+					    <!-- Descricao -->
+			        	<p:column>
+				           	<h:outputLabel for="lancamentoDescricao" value="Descricao: *" />
+				        	<h:inputText id="lancamentoDescricao" maxlength="50" value="#{lancamentoBean.lancamento.descricao}" style="margin-left:30px;" />
+			    	    </p:column>
+			    	    
+			    	    <!-- Valor -->
+			        	<p:column>
+				           	<h:outputLabel for="lancamentoValor" value="Valor: *" />
+				        	<h:inputText id="lancamentoValor"  value="#{lancamentoBean.lancamento.valor}" style="margin-left:65px;" />
+			    	    </p:column>	
+			    	   <!--  
+			    	    <h:outputLabel for="cal" value="Data: *" />
+			    	    <p:calendar value="#{lancamentoBean.lancamento.dataLanc}" id="cal" showButtonPanel="true" navigator="true" />    
+			    	    	    -->
+			       
+				</h:panelGrid>
+
+           
+			<div style="text-align: left; margin-top:10px">
+				<h:panelGrid columns="3" id="panel">
+					<p:commandButton value="Salvar" widgetVar="saveBtn"
+						title="Salvar"
+						update=":formLancamento, :formManageLancamento"
+						action="#{lancamentoBean.btnSave}"
+						style="margin-right:20px;"/>
+						
+					<p:commandButton widgetVar="cancelBtn"
+						title="Cancel" value="Cancel"
+						update=":formLancamento, :formManageLancamento"
+						action="#{lancamentoBean.btnCancel}"
+						onclick="lancamentoDialog.hide();" style="margin-right:20px;"/>
+				</h:panelGrid>
+			</div>	
+		</h:form>
+	</p:dialog>
+
+	
+</ui:composition>

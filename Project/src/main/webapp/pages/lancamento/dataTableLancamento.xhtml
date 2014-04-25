@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+
+	<p:growl id="messages_growl" globalOnly="true" showDetail="true" />
+
+	<p:dataTable id="dataTable" var="lanc"	value="#{lancamentoBean.lancamentos}" sortMode="multiple" rows="25" paginator="true">
+	
+		<f:facet name="header">Lancamentos</f:facet>
+
+		<p:column sortBy="descricao" headerText="Descricao">
+			<h:outputText value="#{lanc.descricao}" />
+		</p:column>
+		<p:column sortBy="valor" headerText="Valor">
+			<h:outputText value="#{lanc.valor}" />
+		</p:column>
+		<p:column sortBy="dataLanc" headerText="Data">
+			<h:outputText value="#{lanc.dataLanc}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+		<p:column sortBy="conta" headerText="Conta">
+			<h:outputText value="#{lanc.conta.descricao}" />
+		</p:column>
+		<p:column sortBy="categoria" headerText="Categoria">
+			<h:outputText value="#{lanc.categoria.nome}" />
+		</p:column>
+
+		<!-- EDIT BUTTON -->
+		<p:column id="btnEdit" style="width:25px" headerText="Editar">
+			<p:commandButton title="Edit" icon="ui-icon-pencil" ajax="true"
+				update=":formLancamento" oncomplete="lancamentoDialog.show();"
+				actionListener="#{lancamentoBean.btnEdit(lanc)}" />
+		</p:column>
+
+		<!-- DELETE BUTTON -->
+		<p:column id="btnDelete" style="width:35px" headerText="Deletar">
+			<p:commandButton title="Delete" icon="ui-icon-close" ajax="true"
+				update=":formManageLancamento" oncomplete="confirmation.show();"
+				actionListener="#{lancamentoBean.prepareToDelete(lanc)}" />
+		</p:column>
+
+	</p:dataTable>
+
+	<!-- Delete Message -->
+	<p:dialog header="Delete Lancamento" widgetVar="confirmation">
+		<!-- Confirmation question -->
+		<h:outputText value="Deletar Lancamento?" />
+
+		<!-- Yes button -->
+		<p:commandButton value="YES" title="YES" style="margin-top:15px;"
+			update="messages_growl, :formManageLancamento"	onstart="confirmation.hide()"
+			actionListener="#{lancamentoBean.btnDelete()}" />
+
+		<!-- No button -->
+		<p:commandButton value="NO" title="NO" onclick="confirmation.hide()" type="button" />
+	</p:dialog>
+
+</ui:composition>

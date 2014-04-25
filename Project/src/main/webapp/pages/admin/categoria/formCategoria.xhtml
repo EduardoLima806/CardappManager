@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+    
+    
+    <p:growl id="msg_growl" globalOnly="true" showDetail="true"/>
+	<p:dialog header="Categorias" widgetVar="categoriaDialog" id="addCategoria" resizable="false" modal="true" closable="false" appendTo="@(body)">
+		
+		<h:form id="formCategoria">
+		
+				<h:panelGrid columns="2" style="margin-right:30px; margin-top:10px;">
+					<!-- Categoria Nome -->
+			        	<p:column>
+				           	<h:outputLabel for="categoriaNome" value="Nome: *" />
+				        	<h:inputText id="categoriaNome" maxlength="20" value="#{categoriaBean.categoria.nome}" style="margin-left:60px;" />
+			    	    </p:column>
+			    	    <!-- Categoria descricao -->
+			        	<p:column>
+				           	<h:outputLabel for="categoriaDescricao" value="Descrição: *" />
+				        	<h:inputText id="categoriaDescricao" maxlength="256" value="#{categoriaBean.categoria.descricao}" style="margin-left:30px;" />
+			    	    </p:column>
+			       
+				</h:panelGrid>
+           
+			<div style="text-align: left; margin-top:10px">
+				<h:panelGrid columns="3" id="panel">
+					<p:commandButton value="Salvar" 
+						title="Salvar"
+						update=":formCategoria, :formManageCategoria"
+						action="#{categoriaBean.btnSave}"
+						style="margin-right:20px;"/>
+						
+					<p:commandButton
+						title="Cancel" value="Cancel"
+						update=":formCategoria, :formManageCategoria"
+						action="#{categoriaBean.btnCancel}"
+						onclick="categoriaDialog.hide();" style="margin-right:20px;"/>
+				</h:panelGrid>
+			</div>	
+		</h:form>
+	</p:dialog>
+</ui:composition>
